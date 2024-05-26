@@ -4,36 +4,44 @@ const mongoose = require("mongoose");
 let dataSchema = new mongoose.Schema({
 
     'name': {
-        required: true,
-        type: String
-    },
-    'prix': {
-        required: true,
-        type: String
-    },
-   
-    'type': {
-        required: true,
-        type: String
-    },
-    'categorie': {
-        required: true,
-        type: String
-    },
-   'quantite': {
-        required: true,
-        type: String
-    },
-    'classe': {
-        required: true,
-        type: String
-    },
-    'Image': {
         required: false,
         type: String
     },
+    'email': {
+        required: true,
+        type: String
+    },
+    'password': {
+        required: true,
+        type: String
+    },
+    'sexe': {
+        required: false,
+        type: String
+    },
+    'phoneNumber': {
+        required: false,
+        type: String
+    },
+    'height': {
+        required: false,
+        type: String
+    },
+    'weight': {
+        required: false,
+        type: String
+    },
+    'adress': {
+        required: false,
+        type: String
+    }, 'image': {
+        required: false,
+        type: String
+    }
+
+
 
 
 })
 // module.exports=mongoose.model("nom de collection",dataSchema)                         
-module.exports = mongoose.model("produits", dataSchema);
+module.exports = mongoose.model("agenda", dataSchema);

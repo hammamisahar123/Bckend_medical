@@ -2,7 +2,8 @@ const express = require("express")
 const mongoose = require('mongoose');
 const app = express();
 const User = require("./user");
-
+const produits = require("./produits");
+//zdet déclaration produit
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -31,7 +32,7 @@ app.use(errHandler);
 
 
 
-
+//users
 
 app.post("/api/add_user", async (req, res) => {
     console.log("Result", req.body);
@@ -130,6 +131,7 @@ app.put("/api/updateUser/:id", async (req, res) => {
 })
 
 
+
 //delete
 
 app.delete("/api/deleteUser/:id", async (req, res) => {
@@ -166,10 +168,6 @@ app.get("/api/get_user_byEmail/:attribute", async (req, res) => {
 
         );
 
-
-
-
-
     } catch (error) {
         res.status(500).json(error.message);
 
@@ -179,35 +177,126 @@ app.get("/api/get_user_byEmail/:attribute", async (req, res) => {
 });
 
 
+//produits
 
 
 
+app.post("/api/add_produits", async (req, res) => {
+    console.log("Result", req.body);
+
+
+    let data = produits(req.body);
+
+    try {
+
+        let dataToStore = await data.save();
+
+        //l reponse ali n7bha tetb3ath bl status ali n7bou send response 
+        res.status(200).send(dataToStore);
+
+    } catch (error) {
+        res.status(400).json(
+            {
+                'status': error.message
+            }
+        );
+
+    }
+
+
+})
 
 
 
+app.get("/api/get_produits", async (req, res) => {
+
+
+    try {
+        //find all product 
+        let data = await produits.find();
+        //send response fl status ali n7b aliih bl message 
+        //wela fichier json ali n7b 3leha najm nasna3eha eni
+        res.status(200).send(
+            {
+                "produits": data
+            }
+
+        );
+
+    } catch (error) {
+        res.status(500).json(error.message);
+
+    }
+
+
+})
+//get par nom pour la recherche
+app.get("/api/get_produits_byName/:_Nom", async (req, res) => {
+
+    try {
+        const query = {};
+        
+        query["name"] = req.params._Nom;
+        //find all product 
+        let data = await produits.find(query);
+        //send response fl status ali n7b aliih bl message 
+        //wela fichier json ali n7b 3leha najm nasna3eha eni
+        res.status(200).json(
+            {
+                "status": "200",
+                "user": data
+            }
+
+
+        );
+
+
+    } catch (error) {
+        res.status(500).json(error.message);
+
+    }
+
+
+})
+//put
+
+app.put("/api/updateproduits/:id", async (req, res) => {
 
 
 
+    let id = req.params.id;
+    let updatedData = req.body;
+    let options = { new: true };
+    try {
+
+
+        let data = await produits.findByIdAndUpdate(id, updatedData, options);
+        res.status(200).send(data);
+        console.log(data);
+
+    } catch (error) {
+        res.send(error.message);
+    }
+
+
+})
+
+//delet 
+app.delete("/api/deletproduits/:id", async (req, res) => {
+
+
+    try {
+
+        let data = await produits.findByIdAndDelete(req.params.id);
+        // lfonction hadhi t returni l data ali deleted
+        res.status(200).send(data);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+})
 
 
 
