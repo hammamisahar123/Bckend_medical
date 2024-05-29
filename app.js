@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const User = require("./user");
 const produits = require("./produits");
+var articles = require("./magazine");
 //zdet déclaration produit
 app.use(express.json());
 app.use(express.urlencoded({
@@ -177,7 +178,7 @@ app.get("/api/get_user_byEmail/:attribute", async (req, res) => {
 });
 
 
-//produits
+///////////////////////////////////////////////////////////////////////////produits
 
 
 
@@ -297,13 +298,33 @@ app.delete("/api/deletproduits/:id", async (req, res) => {
 
 
 })
+///////////////////////////////////////////////////////////////////////////////////////////////////////// gérer les rendez-vous
 
 
-
-
-
-
-
+  /////////////////////////////////////////////////////////////////////////////////////////magazine
+  app.get('/articles', async (req, res) => {
+    try {
+      const articles = await article.find();
+      res.json(articles);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+  
+  app.post('/articles', async (req, res) => {
+    const article = new article({
+      title: req.body.title,
+      description: req.body.description,
+      imageUrl: req.body.imageUrl,
+    });
+  
+    try {
+      const newarticle = await article.save();
+      res.status(201).json(newarticle);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  });
 
 
 
