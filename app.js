@@ -1,20 +1,24 @@
 const express = require("express")
 const mongoose = require('mongoose');
+
 const app = express();
-const User = require("./user");
-const produits = require("./produits");
-const magazine = require("./magazine");
-const temps = require("./temps");
-const dossier = require("./dossier");
-const medecin = require("./medecin");
-const appointment = require("./appoin");
-//zdet déclaration produit
+const path = require('path'); // Add this line to import the path module
+
+const User = require("./models/user");
+const produits = require("./models/produits");
+const magazine = require("./models/magazine");
+const temps = require("./models/temps");
+const dossier = require("./models/dossier");
+const medecin = require("./models/medecin");
+const appointment = require("./models/appoin");
+app.use(express.static(path.join(__dirname, "public"))); //***// */
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
 
-app.use(express.static(path.join(__dirname, "public"))); //***// */
+
 
 
 //const methodOverride = require("method-override");
