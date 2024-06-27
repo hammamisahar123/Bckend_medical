@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const magazineController = require('./controllers/magazineController');
+const magazineController = require('../controllers/magazineController');
 
 router.post("/api/add_magazine", magazineController.addMagazine);
 router.delete("/api/delet_magazine/:id", magazineController.deleteMagazine);

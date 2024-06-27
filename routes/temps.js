@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const timeController = require('./controllers/tempsController');
+const timeController = require('../controllers/tempsController');
 
 router.post("/api/add_temps", timeController.add_temps);
 router.put("/api/update_temps/:id", timeController.update_temps);

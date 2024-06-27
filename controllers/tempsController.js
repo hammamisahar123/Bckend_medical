@@ -1,4 +1,4 @@
-const Time = require('./models/temps'); // Assurez-vous que votre modèle est nommé Time
+const Time = require('../models/temps'); // Assurez-vous que votre modèle est nommé Time
 
 // Ajouter un temps
 exports.add_temps = async (req, res) => {
