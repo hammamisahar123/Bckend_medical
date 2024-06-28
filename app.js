@@ -6,10 +6,10 @@ const path = require('path'); // Add this line to import the path module
 
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
-const timeRoutes = require('./routes/time');
+const timeRoutes = require('./routes/temps');
 const medecinRoutes = require('./routes/medecin');
 const magazineRoutes = require('./routes/magazine');
-const appointmentRoutes = require('./routes/appointment');
+const appointmentRoutes = require('./routes/agenda');
 
 app.use(express.static(path.join(__dirname, "public"))); //***// */
 

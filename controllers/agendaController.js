@@ -1,4 +1,4 @@
-const Appointment = require('../models/Appointment'); // Assurez-vous que votre modèle est nommé Appointment
+const Appointment = require('../models/appoin'); // Assurez-vous que votre modèle est nommé Appointment
 
 // Ajouter un rendez-vous
 exports.addAppointment = async (req, res) => {
