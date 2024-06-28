@@ -1,4 +1,4 @@
-const Medecin = require('./models/medecin'); // Assurez-vous que votre modèle est nommé Medecin
+const Medecin = require('../models/medecin'); // Assurez-vous que votre modèle est nommé Medecin
 
 // Ajouter un médecin
 exports.add_medecin = async (req, res) => {
