@@ -16,11 +16,7 @@ let dataSchema = new mongoose.Schema({
         required:true,
         type:String
 
-    },
-
-
-
-
+    }
 })
 // module.exports=mongoose.model("nom de collection",dataSchema)                         
 module.exports = mongoose.model("medecin", dataSchema);

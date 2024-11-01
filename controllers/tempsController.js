@@ -1,10 +1,10 @@
-const Time = require('../models/temps'); // Assurez-vous que votre modèle est nommé Time
+const temps_Medecin = require('../models/temps');
 
 // Ajouter un temps
 exports.add_temps = async (req, res) => {
     console.log("Result", req.body);
 
-    let data = new Time(req.body);
+    let data = new temps_Medecin(req.body);
 
     try {
         let dataToStore = await data.save();
@@ -21,7 +21,7 @@ exports.update_temps = async (req, res) => {
     let options = { new: true };
 
     try {
-        let data = await Time.findByIdAndUpdate(id, updatedData, options);
+        let data = await temps_Medecin.findByIdAndUpdate(id, updatedData, options);
         res.status(200).send(data);
         console.log(data);
     } catch (error) {
@@ -32,7 +32,7 @@ exports.update_temps = async (req, res) => {
 // Supprimer un temps
 exports.delet_temps = async (req, res) => {
     try {
-        let data = await Time.findByIdAndDelete(req.params.id);
+        let data = await temps_Medecin.findByIdAndDelete(req.params.id);
         res.status(200).send(data);
     } catch (error) {
         res.status(500).send(error.message);
@@ -46,5 +46,28 @@ exports.get_temps_byId = async (req, res) => {
         res.status(200).json({ "status": "200", "temps": data });
     } catch (error) {
         res.status(500).json(error.message);
+    }
+};
+exports.get_temps_byDate = async (req, res) => {
+    try {
+        const { date } = req.params; // La date au format 'YYYY-MM-DD'
+
+        // Rechercher les documents avec la date spécifique
+        let data = await temps_Medecin.find({
+            date: date
+        });
+
+        // Si aucune donnée n'est trouvée, renvoyer une réponse 404
+        if (data.length === 0) {
+            return res.status(404).json({ message: "No data found for this date", status: "404" });
+        }
+
+        // Afficher les données trouvées pour débogage
+        console.log('Data found:', data);
+
+        // Renvoyer les données trouvées
+        res.status(200).json({ "temps": data, "status": "200" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };

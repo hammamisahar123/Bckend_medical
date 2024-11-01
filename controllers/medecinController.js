@@ -29,24 +29,18 @@ exports.delet_medecin = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
-
-// Obtenir tous les médecins
-exports.get_medecin = async (_req, res) => {
+exports.get_Medecin_ByEmail = async (req, res) => {
     try {
-        let data = await Medecin.find();
-        res.status(200).send({ "medecins": data });
+        const email = req.params.email; // Récupère l'email du paramètre de requête
+        let data = await Medecin.findOne({ email: email }); // Utilise findOne pour ne récupérer qu'un seul médecin
+        if (!data) {
+            return res.status(404).json({ message: "Médecin non trouvé." });
+        }
+        res.status(200).json({ medecin: data });
+        console.log("Médecin récupéré:", data);
     } catch (error) {
-        res.status(500).json(error.message);
+        res.status(500).json({ 'error': error.message });
+        console.log("Erreur:", error);
     }
 };
 
-// Obtenir un médecin par nom
-exports.get_medecin_byName = async (req, res) => {
-    try {
-        const query = { name: req.params._Nom };
-        let data = await Medecin.find(query);
-        res.status(200).json({ "status": "200", "medecin": data });
-    } catch (error) {
-        res.status(500).json(error.message);
-    }
-};

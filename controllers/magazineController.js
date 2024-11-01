@@ -2,15 +2,20 @@ const Magazine = require('../models/magazine'); // Assurez-vous que votre modèl
 
 // Ajouter un magazine
 exports.addMagazine = async (req, res) => {
-    console.log("Reçu :", req.body);
+    if (!req.file) {
+        return res.status(400).json({ status: "L'image est requise." });
+    }
 
-    const newMagazine = new Magazine(req.body);
+    // Créer un nouveau profil patient avec l'image incluse
+    let data = new Magazine({
+        ...req.body,
+        imageUrl: req.file.filename // Le nom du fichier image
+    });
 
     try {
-        const savedMagazine = await newMagazine.save();
-        res.status(200).send(savedMagazine);
+        let dataToStore = await data.save();
+        res.status(200).send(dataToStore);
     } catch (error) {
-        console.error("Erreur lors de la sauvegarde du magazine:", error);
         res.status(400).json({ status: error.message });
     }
 };

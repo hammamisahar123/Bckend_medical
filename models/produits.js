@@ -28,10 +28,12 @@ let dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    'Image': {
+    'image': {
         required: false,
         type: String
     },
+   
+
 
 
 })

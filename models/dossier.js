@@ -1,22 +1,45 @@
-
 const mongoose = require("mongoose");
 
-let dataSchema = new mongoose.Schema({
-
-    'fichier': {
-        required: true,
-        type: String
+// Définition du schéma
+const dataSchema = new mongoose.Schema({
+    coordonnees: {
+        nom: { type: String, required: true },
+        prenom: { type: String, required: true },
+        adresse: { type: String, required: true },
+        telephone: { 
+            type: String, 
+            required: true,
+        },
+        email: { 
+            type: String, 
+            required: true,
+           
+        }
     },
-    'examen': {
-        required: true,
-        type:String
+    consultations:{
+        motif: { type: String, required: true },
+        symptome: { type: String, required: true }, // Ajout du symptôme
+        pression: { type: String, required: true }, // Ajout de la pression artérielle
+        glycemie: { type: String, required: true }, // Ajout de la glycémie
+        poids: { type: String, required: true }, // Ajout du poids
+        taille: { type: String, required: true }, // Ajout de la taille
     },
-   'note':{ 
-    require: true,
-    type: String
-   },
-  
+    ordonnances: {
+        
+            nom: { type: String, required: true },
+            medicaments:{type: String, required: true}, 
+           posologie: { type: String, required: true },
+           description: { type: String },
+            
+            medecin: {
+                nom: { type: String, required: true }, // Nom du médecin
+                contact: { type: String, required: true } // Contact du médecin
+            }
+        }
+   
+});
 
-})
-// module.exports=mongoose.model("nom de collection",dataSchema)                         
-module.exports = mongoose.model("dossiers", dataSchema);
+// Export du modèle
+const Dossier = mongoose.model("Dossiers", dataSchema);
+
+module.exports = Dossier;
